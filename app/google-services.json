@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "41454723626",
+    "firebase_url": "https://hospicerouter.firebaseio.com",
+    "project_id": "hospicerouter",
+    "storage_bucket": "hospicerouter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41454723626:android:edcd97df45930b2b",
+        "android_client_info": {
+          "package_name": "com.example.chazhampton.hospicerouter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41454723626-ugfs18j31q4f30kujh26o7p5v9tb5ncq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8olfvv_RL0evx5YKWsFQ0FKK622zAwbU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
