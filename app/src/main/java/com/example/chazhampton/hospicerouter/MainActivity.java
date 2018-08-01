@@ -38,10 +38,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import com.example.chazhampton.hospicerouter.Patient;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
+import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PermissionsListener {
 
     private Button signOut;
     //private String myUserEmailVal = getIntent().getStringExtra("userEmailKey");
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference patientcomments;
     private DatabaseReference patientaddress;
     private FirebaseUser mUser;
+    private PermissionsManager permissionsManager;
 
 
     private ProgressBar progressBar;
@@ -213,6 +217,35 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         if (authListener != null) {
             auth.removeAuthStateListener(authListener);
+        }
+    }
+
+    @SuppressWarnings( {"MissingPermission"})
+    private void enableLocationPlugin() {
+        // Check if permissions are enabled and if not request
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            // Create an instance of LOST location engine
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+
+    }
+
+    @Override
+    public void onPermissionResult(boolean granted) {
+        if (granted) {
+            enableLocationPlugin();
+        } else {
+            finish();
         }
     }
 }
