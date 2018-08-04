@@ -173,9 +173,10 @@ public class LoginActivity extends AppCompatActivity {
                                                                 intent.putExtra("org_name",inputCompanyName.getText().toString());
                                                                 startActivity(intent);
                                                                 finish();
-                                                            }else {//Key missmatch, send to MainActivity
+                                                            }else {//Key missmatch, send to MainActivity since this user is not an admin
                                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                                 intent.putExtra("userEmailKey", Key_email.toString());
+                                                                intent.putExtra("org_name",inputCompanyName.getText().toString());
                                                                 startActivity(intent);
                                                                 finish();
                                                             }

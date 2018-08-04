@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 
                 appInfo.putExtra("patientvalue", patient_val);
                 appInfo.putExtra("userEmailKey", myUserEmailVal);
+                appInfo.putExtra("org_name", org_name);
                 startActivity(appInfo);
             }
         });

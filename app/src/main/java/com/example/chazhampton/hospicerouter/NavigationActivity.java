@@ -105,13 +105,14 @@ public class NavigationActivity extends AppCompatActivity implements LocationEng
         mapView.onCreate(savedInstanceState);
 
         String myVal = getIntent().getStringExtra("patientvalue");
+        String org_name = getIntent().getStringExtra("org_name");
 
 
         String[] split = myVal.split("Patient address:");
         String firstSubString = split[0];
         String secondSubString = split[1];
         String[] split_second = split[1].split("Patient Comments:");
-        String patientAddress = split_second[0];//This will be out address string..
+        String patientAddress = split_second[0];//This will be our address string..
         String fourthSubString = split_second[1];
 
 
@@ -301,7 +302,7 @@ public class NavigationActivity extends AppCompatActivity implements LocationEng
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("users");
+                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("companies").child(org_name).child("users");
                         String myUserEmailVal = getIntent().getStringExtra("userEmailKey");
                         System.out.println(myUserEmailVal + "***** EmailVal in coute calc add");
                         System.out.println(currentRoute_distance + "** route distance");
