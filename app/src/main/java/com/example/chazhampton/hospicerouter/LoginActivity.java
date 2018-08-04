@@ -32,10 +32,10 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword, inputCompanyName;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset, Adminbtn;
+    private Button btnSignup, btnLogin, btnReset, btnSignupCompany;
     private String Userauth;
     private DatabaseReference mRef;
     private String Key_admin = "", Key_email = "";
@@ -50,41 +50,37 @@ public class LoginActivity extends AppCompatActivity {
 
         String Admin_Segue = getIntent().getStringExtra("Admin_Segue");//check for admin
 
-        if (auth.getCurrentUser() != null && !Admin_Segue.equals("true")) {//we do not wish to auto log admin accounts
+/*        if (auth.getCurrentUser() != null && !Admin_Segue.equals("true")) {//we do not wish to auto log admin accounts
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
-        }
+        } */
 
         // set the view now
-        setContentView(R.layout.activity_login);//DONOT let this be main..... total_hours_wasted = 5;
+        setContentView(R.layout.activity_login);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
+        inputEmail = (EditText) findViewById(R.id.email_login);
+        inputPassword = (EditText) findViewById(R.id.password_login);
+        inputCompanyName = (EditText) findViewById(R.id.organization_name_login);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnSignup = (Button) findViewById(R.id.btn_signup);
+        btnSignupCompany = (Button) findViewById(R.id.btn_signup_company);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
-        Adminbtn = (Button) findViewById(R.id.Adminbtn);
-
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
-
-        Adminbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-
-            }
-        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            }
+        });
+
+        btnSignupCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, SignupActivityCompany.class));
             }
         });
 
@@ -101,6 +97,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
+                String company = inputCompanyName.getText().toString();
+
+                if (TextUtils.isEmpty(company)) {
+                    Toast.makeText(getApplicationContext(), "Enter organization name!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -138,10 +140,12 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else{
 
-                                    DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users");
+                                    DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("companies").child(inputCompanyName.getText().toString()).child("users");
 
-                                    Query query = FirebaseDatabase.getInstance().getReference().child("users").orderByChild("userType").equalTo("Admin");
-                                    Query query2 = FirebaseDatabase.getInstance().getReference().child("users").orderByChild("userEmail").equalTo(inputEmail.getText().toString());
+                                   // Query query = FirebaseDatabase.getInstance().getReference().child("users").orderByChild("userType").equalTo("Admin");
+                                    //Query query2 = FirebaseDatabase.getInstance().getReference().child("users").orderByChild("userEmail").equalTo(inputEmail.getText().toString());
+                                    Query query = mRef.orderByChild("userType").equalTo("Admin");
+                                    Query query2 = mRef.orderByChild("userEmail").equalTo(inputEmail.getText().toString());
 
                                     query.addListenerForSingleValueEvent(new ValueEventListener() {//Find all instances of Admin acc.'s in database and grab key
                                         @Override
@@ -166,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                                                             if (Key_admin.equals(Key_email)){//if both keys match then the entered email belongs to an admin account
                                                                 System.out.println(Key_admin + " " + Key_email + " *is key admin and jey email respectively");
                                                                 Intent intent = new Intent(LoginActivity.this, AdminActivity.class);//Send to admin screen
+                                                                intent.putExtra("org_name",inputCompanyName.getText().toString());
                                                                 startActivity(intent);
                                                                 finish();
                                                             }else {//Key missmatch, send to MainActivity

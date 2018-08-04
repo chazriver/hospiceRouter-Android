@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -19,14 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivityCompany extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword, inputName, inputCompanyName;
     private Button btnSignIn, btnSignUp, btnResetPassword;
@@ -39,24 +33,24 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_company);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
+        btnSignIn = (Button) findViewById(R.id.sign_in_button_company);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputName = (EditText) findViewById(R.id.name_signup);
-        inputEmail = (EditText) findViewById(R.id.email_signup);
-        inputPassword = (EditText) findViewById(R.id.password_signup);
+        inputName = (EditText) findViewById(R.id.name_company_signup);
+        inputEmail = (EditText) findViewById(R.id.email_company_signup);
+        inputCompanyName = (EditText) findViewById(R.id.company_name);
+        inputPassword = (EditText) findViewById(R.id.password_company_signup);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
-        inputCompanyName = (EditText) findViewById(R.id.company_name_signup);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
+                startActivity(new Intent(SignupActivityCompany.this, ResetPasswordActivity.class));
             }
         });
 
@@ -90,39 +84,34 @@ public class SignupActivity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
+
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(SignupActivityCompany.this, new OnCompleteListener<AuthResult>() {
 
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                String userType = "User";//Default typs is User, must be changed to Admin on the database itself for security
+                                String userType = "Admin";//Default type is Admin when creating a new company, must be changed to User on the database itself for security
                                 //add the new employee to the data base to track their miles later during navigation
-                               // DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("users");
-                               DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("companies").child(inputCompanyName.getText().toString()).child("users");//add user to the new organization ID
 
+                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+                                mRef = mRef.child("companies").push();
+                                mRef = mRef.child("organization").push();
+
+                                mRef = FirebaseDatabase.getInstance().getReference("companies").child(inputCompanyName.getText().toString()).child("users");//add user to the new organization ID
                                 String patientID = mRef.push().getKey();
                                 User user = new User(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString(),userType,miles);
                                 mRef.child(patientID).setValue(user);
-
-                              /*  DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("users");
-                                mRef.child(inputName.getText().toString()).push().setValue(inputName.getText().toString());
-                                mRef.child(inputName.getText().toString()).child("email").push().setValue(inputEmail.getText().toString());
-                                mRef.child(inputName.getText().toString()).child("password").push().setValue(inputPassword.getText().toString());
-                                mRef.child(inputName.getText().toString()).child("miles").push().setValue(0); */
-                                Toast.makeText(SignupActivity.this, "created User with Email:" + (inputEmail.getText().toString()) + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignupActivityCompany.this, "created User with Email:" + (inputEmail.getText().toString()) + task.isSuccessful(), Toast.LENGTH_SHORT).show();
 
                                 progressBar.setVisibility(View.GONE);
 
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Intent appInfo = new Intent(SignupActivity.this, MainActivity.class);
+                                //Since this is creating a new user on a new organization, we do not need ot check if user isalready created since we just created the user i.e. (the admin user)
+                                    Intent appInfo = new Intent(SignupActivityCompany.this, AdminActivity.class);//Testing Admin activity page..
                                     appInfo.putExtra("org_name",inputCompanyName.getText().toString());
                                     startActivity(appInfo);
                                     finish();
-                                }
+
                             }
                         });
 

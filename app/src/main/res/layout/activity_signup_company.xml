@@ -24,7 +24,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <EditText
-            android:id="@+id/company_name_signup"
+            android:id="@+id/company_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/company_name"
@@ -34,7 +34,7 @@
             android:textColor="@android:color/white" />
 
         <EditText
-            android:id="@+id/name_signup"
+            android:id="@+id/name_company_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/employee_name"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/email_signup"
+                android:id="@+id/email_company_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/password_signup"
+                android:id="@+id/password_company_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
@@ -99,11 +99,9 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
-        <!-- Link to Login Screen -->
-
         <Button
-            android:id="@+id/sign_in_button"
-            android:layout_width="fill_parent"
+            android:id="@+id/sign_in_button_company"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@null"
@@ -111,6 +109,9 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15dp" />
+
+        <!-- Link to Login Screen -->
+
     </LinearLayout>
 
     <ProgressBar

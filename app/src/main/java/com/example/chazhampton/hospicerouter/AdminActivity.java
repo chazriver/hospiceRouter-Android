@@ -58,8 +58,7 @@ import android.app.AlertDialog.Builder;
 public class AdminActivity extends AppCompatActivity {
 
 
-    private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
-                changeEmail, changePassword, sendEmail, remove, signOut, sendBtn;
+    private Button signOut, sendBtn;
         private EditText new_name_text, new_address_text, new_comments_text;
         // Firebase variables
         private DatabaseReference mDatabase;
@@ -86,6 +85,9 @@ public class AdminActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_admin);
 
+            String org_name = getIntent().getStringExtra("org_name");
+
+
             signOut = (Button) findViewById(R.id.sign_out);
             sendBtn = (Button) findViewById(R.id.sendbtn);
             new_name_text = (EditText) findViewById(R.id.new_patient_name);
@@ -93,12 +95,15 @@ public class AdminActivity extends AppCompatActivity {
             new_comments_text = (EditText) findViewById(R.id.new_patient_comments);
 
             //get firebase database instance
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("patients");
-         //   patientnames = mDatabase.child("patientName");
+            //mDatabase = FirebaseDatabase.getInstance().getReference().child("patients");
+            System.out.println("****" + org_name);
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("companies").child(org_name).child("patients");
+
+            //   patientnames = mDatabase.child("patientName");
          //   patientnames = mDatabase.child("patientAddress");
          //   patientnames = mDatabase.child("patientComments");
 
-            listView = (ListView) findViewById(R.id.database_list_view);
+            listView = (ListView) findViewById(R.id.database_list_view_admin);
 
           /*  sendBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,6 +111,8 @@ public class AdminActivity extends AppCompatActivity {
 
                 }
             });*/
+
+            adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,arrayList);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -184,7 +191,7 @@ public class AdminActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
                         //add the new employee to the data base to track their miles later during navigation
-                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference("patients");
+                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("companies").child(org_name).child("patients");
                         String patientID = mRef.push().getKey();
                         Patient patient = new Patient(new_name_text.getText().toString(),new_address_text.getText().toString(),new_comments_text.getText().toString());
                         mRef.child(patientID).setValue(patient);

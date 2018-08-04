@@ -51,7 +51,7 @@
             android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/database_list_view"
+            android:id="@+id/database_list_view_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp">

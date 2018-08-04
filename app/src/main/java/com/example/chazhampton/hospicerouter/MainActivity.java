@@ -76,14 +76,16 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         setContentView(R.layout.activity_main);
 
         String myUserEmailVal = getIntent().getStringExtra("userEmailKey");
+        String org_name = getIntent().getStringExtra("org_name");
 
         //get firebase database instance
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("patients");
-        patientnames = mDatabase.child("patientName");
-        patientnames = mDatabase.child("patientAddress");
-        patientnames = mDatabase.child("patientComments");
-
-        listView = (ListView) findViewById(R.id.database_list_view);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("companies").child(org_name).child("patients");
+        /*
+          patientnames = mDatabase.child("patientName");
+          patientnames = mDatabase.child("patientAddress");
+          patientnames = mDatabase.child("patientComments");
+        */
+        listView = (ListView) findViewById(R.id.database_list_view_main);
 
          listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
