@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">hospiceRouter</string>
+    <string name="app_name">Hospice Router</string>
     <!--  -->
     <string name="action_sign_in_short">Register</string>
+    <string name="action_sign_in_long">Register Organization</string>
     <string name="email">Email</string>
+    <string name="subscription_period_monthly">Monthly $99.90</string>
     <string name="hint_email">Email</string>
+    <string name="subscription_period_prompt">Select your subscription period</string>
+    <string name="subscription_resignup_prompt">To reactivate your subscription, select your subscription period</string>
+    <string name="subscription_prompt_continue">Continue</string>
+    <string name="subscription_prompt_cancel">Cancel</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="change_email">Change Email</string>
@@ -18,6 +24,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
+    <string name="btn_view_users">User info</string>
     <string name="organization_hint">Organization Name</string>
     <string name="btn_link_to_register">Not a member? Register now!</string>
     <string name="btn_link_to_register_company">New organization? Register as organization now!</string>
@@ -26,7 +33,7 @@
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_reset_password">Reset Password</string>
-    <string name="btn_back"><![CDATA[<< Back]]></string>
+    <string name="btn_back">Back</string>
     <string name="hint_patient_address">Patient Address</string>
     <string name="hint_patient_comments">Patient Comments</string>
     <string name="btn_change">Change</string>
@@ -43,4 +50,5 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_userinfo">UserinfoActivity</string>
 </resources>

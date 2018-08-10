@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.chazhampton.hospicerouter.LoginActivity">
+    tools:context="com.chazhampton.hospicerouter.LoginActivity">
 
     <LinearLayout
+        android:id="@+id/screen_main"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/colorPrimaryDark"
@@ -79,13 +80,13 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/sign_up_button"
+            android:id="@+id/sign_up_button_company"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="#777475"
-            android:text="@string/action_sign_in_short"
+            android:text="@string/action_sign_in_long"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -99,16 +100,15 @@
             android:textAllCaps="false"
             android:textColor="@color/colorAccent" />
 
-        <Button
-            android:id="@+id/sign_in_button_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/hrouter_subscribe"
+            android:src="@drawable/subscribe"
+            android:onClick="onSubscribeButtonClicked"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
         <!-- Link to Login Screen -->
 

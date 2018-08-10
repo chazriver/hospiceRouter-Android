@@ -1,24 +1,23 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'com.google.gms.google-services'//For google services Plugin
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.chazhampton.hospicerouter"
+        applicationId "com.chazhampton.hospicerouter"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,7 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '28.0.1'//    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.1'
+
+    sourceSets { main { aidl.srcDirs = ['src/main/aidl', 'src/main/aidl/'] } }
 
 }
 
@@ -36,17 +37,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0'//just delete -SHAPCHOT to stop using nightly builds
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.7.1'//ADDED 7-29-18 Seeing if fix is implemented
-
-    /* implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.2.1@aar') {
-         transitive = true
-     } */
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.16.0'//just delete -SHAPCHOT to stop using nightly builds
-   /* implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.15.0') {
-        transitive = true
-    }*/
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.16.0'//ADDED 7-29-18 Seeing if fix is implemented
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.7.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.16.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.16.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
@@ -57,12 +51,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "com.google.firebase:firebase-auth:16.0.2"
-    implementation 'com.google.firebase:firebase-core:16.0.1'//For google services Plugin
+    implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.7.1'//**Added
-    //ADDED-> below
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.7.1'
     implementation('com.mapbox.mapboxsdk:mapbox-android-sdk:6.3.0@aar') { transitive = true }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.16.0'
     implementation('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.16.0') { transitive = true }
+    implementation 'com.android.billingclient:billing:1.1'
 }
-

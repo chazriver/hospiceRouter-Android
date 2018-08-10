@@ -1,4 +1,4 @@
-package com.example.chazhampton.hospicerouter;
+package com.chazhampton.hospicerouter;
 
 import org.junit.Test;
 

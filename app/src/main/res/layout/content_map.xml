@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.chazhampton.hospicerouter.NavigationActivity"
+    tools:context="com.chazhampton.hospicerouter.NavigationActivity"
     tools:showIn="@layout/activity_navigation">
 
 </android.support.constraint.ConstraintLayout>

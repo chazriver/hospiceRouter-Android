@@ -5,15 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.chazhampton.hospicerouter.AdminActivity">
+    tools:context="com.chazhampton.hospicerouter.AdminActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp">
-
-
 
     </android.support.design.widget.AppBarLayout>
 
@@ -58,7 +56,12 @@
             android:maxLines="1"
             android:singleLine="true" />
 
-        <Button
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <Button
             android:id="@+id/sendbtn"
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
@@ -68,6 +71,19 @@
             android:text="@string/btn_send"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/view_users"
+            style="?android:textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/btn_view_users"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"
