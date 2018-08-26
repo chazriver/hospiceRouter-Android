@@ -10,8 +10,15 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -26,24 +33,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
+
         <EditText
             android:id="@+id/new_patient_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_patient_name"
             android:maxLines="1"
-            android:singleLine="true" />
-
-        <EditText
-            android:id="@+id/new_patient_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:hint="@string/hint_patient_address"
-            android:imeActionId="@integer/customImeActionId"
-            android:imeOptions="actionUnspecified"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="" />
 
         <EditText
             android:id="@+id/new_patient_comments"
@@ -54,7 +52,22 @@
             android:imeActionId="@integer/customImeActionId"
             android:imeOptions="actionUnspecified"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="" />
+
+        <com.mapbox.services.android.ui.geocoder.GeocoderAutoCompleteView
+            android:id="@+id/query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="14dp"
+            android:background="@android:color/white"
+            android:hint="Search Location"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black" />
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -82,7 +95,8 @@
             android:background="@color/colorPrimaryDark"
             android:text="@string/btn_view_users"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginStart="160dp" />
     </LinearLayout>
 
         <ProgressBar
